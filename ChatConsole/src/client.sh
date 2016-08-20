@@ -1,3 +1,3 @@
 #!/bin/sh
-javac ChatClient.java
-java ChatClient
+javac rmi/client/ClientDriver.java
+java rmi/client/ClientDriver

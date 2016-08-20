@@ -1,6 +1,5 @@
 package rmi.server;
 
-
 import rmi.client.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServerImp extends UnicastRemoteObject implements IServer {
+
 	public String name;
 	public List<IClient> clients;
 
@@ -39,4 +39,3 @@ public class ServerImp extends UnicastRemoteObject implements IServer {
 		return this.clients;
 	}
 }
-

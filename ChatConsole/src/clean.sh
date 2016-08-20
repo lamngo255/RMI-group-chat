@@ -1,2 +1,3 @@
 #!/bin/sh
-rm *.class
+rm rmi/server/*.class
+rm rmi/client/*.class

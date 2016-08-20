@@ -1,3 +1,3 @@
 #!/bin/sh
-javac ChatServer.java
-java ChatServer
+javac rmi/server/ServerDriver.java
+java rmi/server/ServerDriver
