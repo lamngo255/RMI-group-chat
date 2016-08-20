@@ -1,10 +1,13 @@
+package rmi.server;
 
+
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.List;
 import java.util.Scanner;
 
-public class ChatServer {
+public class ServerDriver {
 
 	public static void main(String[] args) {
 		try {
@@ -13,27 +16,20 @@ public class ChatServer {
 			System.out.print("Enter your name: ");
 			String name = in.nextLine().trim();
 
-			// register a name to RMI registry, for binding server
+			// register a name to RMI registry, for binding chatServer
 			LocateRegistry.createRegistry(1099);
-			ChatImp server = new ChatImp(name);
-			String url = "rmi://localhost/ABC";
-			Naming.rebind(url, server);
 
+			ServerImp chatServer = new ServerImp(name);
+			String url = "rmi://localhost/ABC";
+			Naming.rebind(url, chatServer);
 			System.out.println("[System] Server is ready...");
 			
 			while (true) {
 				String msg = in.nextLine().trim();
-
-				// broadcasting message to all clients
-				if (server.getClients() != null) {
-					List<IChat> clients = server.getClients();
-					msg = "[" + server.getName() + "] " + msg;
-					for (IChat iClient : clients) {
-						iClient.send(msg);
-					}
-				}
+				msg = "[" + chatServer.getName() + "] " + msg;
+				chatServer.broadcastMessage(msg);
 			}
-		} catch (Exception e) {
+		} catch (RemoteException | MalformedURLException e) {
 			System.out.println("[System] Server failed: " + e);
 		}
 
